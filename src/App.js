@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import HomePage from './pages/HomePage';
+import BottomNavigator from './components/BottomNavigator';
 import { useSelector, useDispatch } from 'react-redux'
 import { changePage } from './redux/generalSlice'
 
@@ -23,6 +24,7 @@ function App() {
         generalSettings.page == 3 &&
         <HomePage />
       }
+      <BottomNavigator />
     </>
   );
 }
