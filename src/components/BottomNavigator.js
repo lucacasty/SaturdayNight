@@ -14,9 +14,8 @@ const BottomNavigator = () => {
 
   return (
     <>
-    <Box sx={{ width: 500 }} style={{position: 'absolute', bottom: '0', width: '100%'}}>
+    <Box style={{position: 'absolute', bottom: '0', width: '100%'}}>
       <BottomNavigation
-        showLabels
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
