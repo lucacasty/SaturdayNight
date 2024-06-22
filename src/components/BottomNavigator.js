@@ -2,11 +2,12 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import DescriptionRoundedIcon from '@mui/icons-material/DescriptionRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+
 
 const BottomNavigator = () => {
 
@@ -21,9 +22,9 @@ const BottomNavigator = () => {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction icon={<HomeRoundedIcon />} />
+        <BottomNavigationAction icon={<DonutSmallIcon />} />
         <BottomNavigationAction icon={<GroupsRoundedIcon />} />
-        <BottomNavigationAction icon={<AddRoundedIcon />} />
+        <BottomNavigationAction icon={<CalendarMonthIcon />} />
         <BottomNavigationAction icon={<DescriptionRoundedIcon />} />
         <BottomNavigationAction icon={<PersonRoundedIcon />} />
       </BottomNavigation>
