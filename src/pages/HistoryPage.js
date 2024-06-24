@@ -3,7 +3,7 @@ import PageTitle from "../components/PageTitle";
 const HistoryPage = () => {
   return (
     <>
-      <PageTitle value="HistoryPage" />
+      <PageTitle value="History Page" />
     </>
   );
 }

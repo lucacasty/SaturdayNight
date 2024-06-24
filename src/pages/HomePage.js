@@ -6,7 +6,7 @@ import IdeasLegend from "../components/IdeasLegend";
 const HomePage = () => {
   return (
     <>
-      <PageTitle value="HOMEPAGE" />
+      <PageTitle value="HomePage" />
       <GroupList />
       <Wheel />
       <IdeasLegend />

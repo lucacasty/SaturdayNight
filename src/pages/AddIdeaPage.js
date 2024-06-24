@@ -3,7 +3,7 @@ import PageTitle from "../components/PageTitle";
 const AddIdeaPage = () => {
   return (
     <>
-      <PageTitle value="AddIdeaPage" />
+      <PageTitle value="Add Idea Page" />
     </>
   );
 }

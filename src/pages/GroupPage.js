@@ -3,7 +3,7 @@ import PageTitle from "../components/PageTitle";
 const GroupPage = () => {
   return (
     <>
-      <PageTitle value="GroupPage" />
+      <PageTitle value="Group Page" />
     </>
   );
 }

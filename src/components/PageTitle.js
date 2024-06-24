@@ -1,7 +1,7 @@
 const PageTitle = ({value}) => {
     return (
       <>
-        <h1> {value} </h1>
+        <h1 style={{textAlign:'center'}}> {value} </h1>
       </>
     );
   }
