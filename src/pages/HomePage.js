@@ -1,3 +1,4 @@
+import PageTitle from "../components/PageTitle";
 import GroupList from "../components/GroupList";
 import Wheel from "../components/Wheel";
 import IdeasLegend from "../components/IdeasLegend";
@@ -5,11 +6,10 @@ import IdeasLegend from "../components/IdeasLegend";
 const HomePage = () => {
   return (
     <>
-
-    
-      <GroupList/>
-      <Wheel/>
-      <IdeasLegend/>
+      <PageTitle value="HOMEPAGE" />
+      <GroupList />
+      <Wheel />
+      <IdeasLegend />
     </>
   );
 }

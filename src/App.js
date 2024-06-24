@@ -3,26 +3,36 @@ import './App.css';
 import HomePage from './pages/HomePage';
 import BottomNavigator from './components/BottomNavigator';
 import { useSelector, useDispatch } from 'react-redux'
-import { changePage } from './redux/generalSlice'
+import GroupPage from './pages/GroupPage';
+import AddIdeaPage from './pages/AddIdeaPage';
+import HistoryPage from './pages/HistoryPage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
 
   const generalSettings = useSelector((state) => state.general)
-  const dispatch = useDispatch()
 
   return (
     <>
       {
-        generalSettings.page == 1 &&
+        generalSettings.page == 0 &&
         <HomePage />
+      }
+      {
+        generalSettings.page == 1 &&
+        <GroupPage />
       }
       {
         generalSettings.page == 2 &&
-        <HomePage />
+        <AddIdeaPage />
       }
       {
         generalSettings.page == 3 &&
-        <HomePage />
+        <HistoryPage />
+      }
+      {
+        generalSettings.page == 4 &&
+        <ProfilePage />
       }
       <BottomNavigator />
     </>
