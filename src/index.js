@@ -33,7 +33,9 @@ const analytics = getAnalytics(app);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>
 );
 
