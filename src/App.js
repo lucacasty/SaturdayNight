@@ -7,8 +7,9 @@ import GroupPage from './pages/GroupPage';
 import AddIdeaPage from './pages/AddIdeaPage';
 import HistoryPage from './pages/HistoryPage';
 import ProfilePage from './pages/ProfilePage';
-import { setUser } from '../redux/userSlice';
+import { setUser } from './redux/userSlice';
 import React, { useState, useEffect } from 'react';
+import { db } from './config/fireBaseConfig';
 import {
   doc,
   onSnapshot,
@@ -37,7 +38,7 @@ function App() {
     const q = query(
       userColletionRef,
       //  where('owner', '==', currentUserId),
-      where('mail', '==', 'luca.castelli02@gmail.com'), // does not need index
+      // where('mail', '==', 'luca.castelli02@gmail.com'), // does not need index
       //  where('score', '<=', 100) // needs index  https://firebase.google.com/docs/firestore/query-data/indexing?authuser=1&hl=en
       // orderBy('score', 'asc'), // be aware of limitations: https://firebase.google.com/docs/firestore/query-data/order-limit-data#limitations
       limit(1)
@@ -45,7 +46,7 @@ function App() {
 
     setLoading(true);
     // const unsub = onSnapshot(q, (querySnapshot) => {
-    const unsub = onSnapshot(q, (querySnapshot) => {
+    const unsub = onSnapshot(userColletionRef, (querySnapshot) => {
       console.log(querySnapshot);
       dispatch(setUser(querySnapshot));
       setLoading(false);
