@@ -27,7 +27,7 @@ import {
 
 function App() {
 
-  const userColletionRef = collection(db, 'users')
+  const userColletionRef = collection(db, 'Users')
   const generalSettings = useSelector((state) => state.general)
   const currentUser = useSelector((state) => state.user)
   const [loading, setLoading] = useState(false)
@@ -38,7 +38,7 @@ function App() {
     const q = query(
       userColletionRef,
       //  where('owner', '==', currentUserId),
-      // where('mail', '==', 'luca.castelli02@gmail.com'), // does not need index
+      where('mail', '==', 'luca.castelli02@gmail.com'), // does not need index
       //  where('score', '<=', 100) // needs index  https://firebase.google.com/docs/firestore/query-data/indexing?authuser=1&hl=en
       // orderBy('score', 'asc'), // be aware of limitations: https://firebase.google.com/docs/firestore/query-data/order-limit-data#limitations
       limit(1)
@@ -46,9 +46,9 @@ function App() {
 
     setLoading(true);
     // const unsub = onSnapshot(q, (querySnapshot) => {
-    const unsub = onSnapshot(userColletionRef, (querySnapshot) => {
-      console.log(querySnapshot);
-      dispatch(setUser(querySnapshot));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      console.log(querySnapshot.docs[0].data());
+      dispatch(setUser(querySnapshot.docs[0].data()));
       setLoading(false);
     });
     return () => {
