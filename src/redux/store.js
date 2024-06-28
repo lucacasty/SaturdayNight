@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import generalReducer from './generalSlice'
+import loginReducer from './loginSlice'
 import userReducer from './userSlice'
 import groupReducer from './groupSlice'
 import ideaReducer from './ideaSlice'
@@ -11,17 +12,16 @@ const persistConfig = {
   storage,
 }
 
-const persistedGeneraldReducer = persistReducer(persistConfig, generalReducer)
-const persistedUserdReducer = persistReducer(persistConfig, userReducer)
-const persistedGroupReducer = persistReducer(persistConfig, groupReducer)
-const persistedIdeaReducer = persistReducer(persistConfig, ideaReducer)
+const persistedGeneralReducer = persistReducer(persistConfig, generalReducer)
+const persistedLoginReducer = persistReducer(persistConfig, loginReducer)
 
 export const store = configureStore({
   reducer: {
-    general: persistedGeneraldReducer,
-    user: persistedUserdReducer,
-    group: persistedGroupReducer,
-    idea: persistedIdeaReducer,
+    general: persistedGeneralReducer,
+    login: loginReducer,
+    user: userReducer,
+    group: groupReducer,
+    idea: ideaReducer,
   },
 })
 
