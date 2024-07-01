@@ -24,30 +24,34 @@ import {
 const HomePage = () => {
 
   const groupColletionRef = collection(db, 'Groups');
-  const currentUser = useSelector((state) => state.login);
+  const currentUserId = useSelector((state) => state.login.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getUserGroups();
-  }, []);
+    if (currentUserId) {
+      const unsub = getUserGroups();
+      return () => {
+        unsub();
+      }
+    }
+
+  }, [currentUserId]);
 
   const getUserGroups = () => {
     const q = query(
       groupColletionRef,
-      where('Users', 'array-contains', currentUser.id)
+      where('Users', 'array-contains', currentUserId)
     );
 
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      console.log(currentUser);
+    let unsub = onSnapshot(q, (querySnapshot) => {
+      console.log(currentUserId);
       console.log(querySnapshot.docs[0].data());
-      //var data = [];
+      //let data = [];
       //data = querySnapshot.docs[0].data();
       //data.id = querySnapshot.docs[0].id;
-      //dispatch(setLogin(data));
+      //dispatch(setLogin());
     });
-    return () => {
-      unsub();
-    };
+    return unsub;
   }
 
   return (
