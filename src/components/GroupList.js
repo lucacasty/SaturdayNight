@@ -26,7 +26,7 @@ export default function GroupList({ groups }) {
           label="Group"
           onChange={handleChange}
         >
-          {groups.map(group => <MenuItem value={group.id}>{group.name}</MenuItem>)}
+          {groups.map(group => <MenuItem key={group.id} value={group.id}>{group.name}</MenuItem>)}
         </Select>
       </FormControl>
     </Box>
