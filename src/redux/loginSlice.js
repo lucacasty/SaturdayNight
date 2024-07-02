@@ -14,10 +14,8 @@ export const fetchUserByMail = createAsyncThunk(
     );
 
     const querySnapshot = await getDocs(userColletionRef);
-    if(querySnapshot[0] === undefined) {
-      console.error('Login errato');
-    }
-    let items = querySnapshot[0].data();
+    let items = querySnapshot.docs[0].data();
+    items.id = querySnapshot.docs[0].id;
     return items;
   },
 )

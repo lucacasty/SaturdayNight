@@ -41,13 +41,13 @@ const HomePage = () => {
   const getUserGroups = () => {
     const q = query(
       groupColletionRef,
-      where('Users', 'array-contains', currentUserId)
+      where('users', 'array-contains', currentUserId)
     );
 
     let unsub = onSnapshot(q, (querySnapshot) => {
       console.log(currentUserId);
       let data = [];
-      querySnapshot.forEach(doc => {
+      querySnapshot.docs.forEach(doc => {
         let tmp = {};
         tmp = doc.data()
         tmp.id = doc.id;
