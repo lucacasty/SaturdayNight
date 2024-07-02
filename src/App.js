@@ -2,11 +2,12 @@ import './App.css';
 import HomePage from './pages/HomePage';
 import BottomNavigator from './components/BottomNavigator';
 import { useSelector, useDispatch } from 'react-redux';
-import GroupPage from './pages/GroupPage';
-import AddIdeaPage from './pages/AddIdeaPage';
-import HistoryPage from './pages/HistoryPage';
-import ProfilePage from './pages/ProfilePage';
+import Login from './login/Login';
+import Register from './login/Register';
+import Reset from './login/Reset';
+import Pages from './pages/Pages';
 import { setLogin, fetchUserByMail } from './redux/loginSlice';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React, { useEffect } from 'react';
 
 function App() {
@@ -25,27 +26,14 @@ function App() {
 
   return (
     <>
-      {
-        generalSettings.page == 0 &&
-        <HomePage />
-      }
-      {
-        generalSettings.page == 1 &&
-        <GroupPage />
-      }
-      {
-        generalSettings.page == 2 &&
-        <AddIdeaPage />
-      }
-      {
-        generalSettings.page == 3 &&
-        <HistoryPage />
-      }
-      {
-        generalSettings.page == 4 &&
-        <ProfilePage />
-      }
-      <BottomNavigator />
+     <Router>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/reset" element={<Reset />} />
+          <Route exact path="/home" element={<Pages />} />
+        </Routes>
+      </Router>
     </>
   );
 }
