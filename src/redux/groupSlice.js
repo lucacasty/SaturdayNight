@@ -7,12 +7,12 @@ export const groupSlice = createSlice({
   },
   reducers: {
     setUserGroups: (state, action) => {
-      state = action.payload
+      state.userGroups = action.payload
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = groupSlice.actions
+export const { setUserGroups } = groupSlice.actions
 
 export default groupSlice.reducer

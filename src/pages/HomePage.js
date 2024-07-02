@@ -2,7 +2,7 @@ import PageTitle from "../components/PageTitle";
 import GroupList from "../components/GroupList";
 import Wheel from "../components/Wheel";
 import IdeasLegend from "../components/IdeasLegend";
-import { setUserGroups } from './../redux/loginSlice';
+import { setUserGroups } from './../redux/groupSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { db } from './../config/fireBaseConfig';
@@ -24,6 +24,7 @@ import {
 const HomePage = () => {
 
   const groupColletionRef = collection(db, 'Groups');
+  const currentUserGroups = useSelector((state) => state.group.userGroups);
   const currentUserId = useSelector((state) => state.login.id);
   const dispatch = useDispatch();
 
@@ -45,11 +46,14 @@ const HomePage = () => {
 
     let unsub = onSnapshot(q, (querySnapshot) => {
       console.log(currentUserId);
-      console.log(querySnapshot.docs[0].data());
-      //let data = [];
-      //data = querySnapshot.docs[0].data();
-      //data.id = querySnapshot.docs[0].id;
-      //dispatch(setLogin());
+      let data = [];
+      querySnapshot.forEach(doc => {
+        let tmp = {};
+        tmp = doc.data()
+        tmp.id = doc.id;
+        data.push(tmp);
+      });
+      dispatch(setUserGroups(data));
     });
     return unsub;
   }
@@ -57,7 +61,7 @@ const HomePage = () => {
   return (
     <>
       <PageTitle value="HomePage" />
-      <GroupList />
+      <GroupList groups={currentUserGroups}/>
       <Wheel />
       <IdeasLegend />
     </>
