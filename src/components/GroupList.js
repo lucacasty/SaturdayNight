@@ -1,3 +1,4 @@
+import '../App.css';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,7 +17,7 @@ export default function GroupList({ groups }) {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120 }} className="groupList">
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Group</InputLabel>
         <Select
