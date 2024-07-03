@@ -25,27 +25,27 @@ const HomePage = () => {
 
   const groupColletionRef = collection(db, 'Groups');
   const currentUserGroups = useSelector((state) => state.group.userGroups);
-  const currentUserId = useSelector((state) => state.login.id);
+  const currentUserMail = useSelector((state) => state.login.email);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (currentUserId) {
+    if (currentUserMail) {
       const unsub = getUserGroups();
       return () => {
         unsub();
       }
     }
 
-  }, [currentUserId]);
+  }, [currentUserMail]);
 
   const getUserGroups = () => {
     const q = query(
       groupColletionRef,
-      where('users', 'array-contains', currentUserId)
+      where('users', 'array-contains', currentUserMail)
     );
 
     let unsub = onSnapshot(q, (querySnapshot) => {
-      console.log(currentUserId);
+      console.log(currentUserMail);
       let data = [];
       querySnapshot.docs.forEach(doc => {
         let tmp = {};

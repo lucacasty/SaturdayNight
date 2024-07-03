@@ -1,4 +1,3 @@
-import './App.css';
 import HomePage from './HomePage';
 import BottomNavigator from '../components/BottomNavigator';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,7 +5,7 @@ import GroupPage from './GroupPage';
 import AddIdeaPage from './AddIdeaPage';
 import HistoryPage from './HistoryPage';
 import ProfilePage from './ProfilePage';
-import { setLogin, fetchUserByMail } from '../redux/loginSlice';
+import { setLogin } from '../redux/loginSlice';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect,useState } from 'react';
@@ -19,17 +18,16 @@ function Pages() {
   const dispatch = useDispatch();
 
   const [user, loading, error] = useAuthState(auth);
-  const [name, setName] = useState("");
   const navigate = useNavigate();
   const fetchUserName = async () => {
     try {
-      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const q = query(collection(db, "Users"), where("uid", "==", user?.uid));
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
-      setName(data.name);
+      dispatch(setLogin(data));
     } catch (err) {
       console.error(err);
-      alert("An error occured while fetching user data");
+      console.log("An error occured while fetching user data");
     }
   };
   useEffect(() => {

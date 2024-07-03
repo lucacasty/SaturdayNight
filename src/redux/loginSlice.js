@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { db } from '../config/fireBaseConfig';
 import { collection, query, where, limit, getDocs} from 'firebase/firestore';
+import { PURGE } from "redux-persist";
 
 const userColletionRef = collection(db, 'Users');
 
@@ -23,21 +24,22 @@ export const fetchUserByMail = createAsyncThunk(
 export const loginSlice = createSlice({
   name: 'login',
   initialState: {
-    id: null,
-    mail: null,
-    dateOfBirth: null,
+    authProvider: null,
+    email: null,
     username: null,
-    password: null,
+    uid: null,
     loading: null
   },
   reducers: {
     setLogin: (state, action) => {
       console.log(action.payload);
-      state.id = action.payload.id;
-      state.mail = action.payload.mail;
-      state.username = action.payload.username;
-      state.dateOfBirth = action.payload.dateOfBirth;
-      state.password = action.payload.password;
+      state.authProvider = action.payload.authProvider;
+      state.email = action.payload.email;
+      state.name = action.payload.name;
+      state.uid = action.payload.uid;
+    },
+    storeLogout: (state, action) => {
+      PURGE();
     },
   },
   extraReducers: (builder) => {
@@ -49,7 +51,7 @@ export const loginSlice = createSlice({
       .addCase(fetchUserByMail.fulfilled, (state, action) => {
         state.loading = 'idle';
         state.id = action.payload.id;
-        state.mail = action.payload.mail;
+        state.email = action.payload.email;
         state.username = action.payload.username;
         state.dateOfBirth = action.payload.dateOfBirth;
         state.password = action.payload.password;
@@ -61,6 +63,6 @@ export const loginSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setLogin } = loginSlice.actions
+export const { setLogin,storeLogout } = loginSlice.actions
 
 export default loginSlice.reducer

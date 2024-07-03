@@ -6,7 +6,6 @@ import Login from './login/Login';
 import Register from './login/Register';
 import Reset from './login/Reset';
 import Pages from './pages/Pages';
-import { setLogin, fetchUserByMail } from './redux/loginSlice';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React, { useEffect } from 'react';
 
@@ -14,15 +13,6 @@ function App() {
 
   const generalSettings = useSelector((state) => state.general);
   const dispatch = useDispatch();
-
-   
-  useEffect(() => {
-    getCurrentUser();  //fake login
-  }, []);
-
-  const getCurrentUser = () => {
-    dispatch(fetchUserByMail('luca.castelli02@gmail.com'));
-  }
 
   return (
     <>
