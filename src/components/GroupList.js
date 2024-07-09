@@ -9,7 +9,10 @@ import { changeSelectedGroup } from '../redux/generalSlice';
 
 export default function GroupList({ groups }) {
 
-  const groupSelected = useSelector((state) => state.general.groupSelected);
+  let groupSelected = useSelector((state) => state.general.groupSelected);
+  if(groupSelected == null) {
+    groupSelected = '';
+  }
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
