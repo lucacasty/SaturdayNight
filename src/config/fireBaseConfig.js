@@ -59,8 +59,8 @@ export const signInWithGoogle = async () => {
     }
   } catch (err) {
     console.error(err);
-    console.log(err.message);
-    return err.message;
+    console.log(err.code);
+    return err.code;
   }
 };
 
@@ -87,8 +87,8 @@ export const registerWithEmailAndPassword = async (name, email, password) => {
     return true;
   } catch (err) {
     console.error(err);
-    console.log(err.message);
-    return err.message;
+    console.log(err.code);
+    return err.code;
   }
 };
 
@@ -99,8 +99,8 @@ export const sendPasswordReset = async (email) => {
     return true;
   } catch (err) {
     console.error(err);
-    console.log(err.message);
-    return err.message;
+    console.log(err.code);
+    return err.code;
   }
 };
 

@@ -5,10 +5,8 @@ import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../config/fir
 import { useAuthState } from "react-firebase-hooks/auth";
 import { parseErrorLoginMessage } from "../utils/parseMessages";
 import { setLoginerror } from '../redux/generalSlice';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import AlertMessage from '../components/AlertMessage';
 import "./Login.css";
-import { getMenuItemUtilityClass } from "@mui/material";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -30,6 +28,12 @@ function Login() {
   const callSignInWithGoogle = async () => {
     const res = await signInWithGoogle();
     console.log(res);
+    if(res !== true) {
+      const message = await parseErrorLoginMessage(res);
+      console.log(message);
+      dispatch(setLoginerror(message));
+      setOpen(true);
+    }
   }
 
   const callLogInWithEmailAndPassword = async (email, password) => {
@@ -52,11 +56,7 @@ function Login() {
 
   return (
     <>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
-        <Alert onClose={handleClose} variant="filled" severity="error" sx={{ width: '100%' }}>
-          {generalSettings.loginError}
-        </Alert>
-      </Snackbar>
+      <AlertMessage handleClose={handleClose} open={open} severity="error" message={generalSettings.loginError}/>
       <div className="login">
         <div className="login__container">
           <h2>
