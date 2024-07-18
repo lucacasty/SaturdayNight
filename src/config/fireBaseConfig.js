@@ -70,8 +70,7 @@ export const logInWithEmailAndPassword = async (email, password) => {
     return true;
   } catch (err) {
     console.error(err);
-    console.log(err.message);
-    return err.message;
+    return err.code;
   }
 };
 

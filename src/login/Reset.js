@@ -4,17 +4,23 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { auth, sendPasswordReset } from "../config/fireBaseConfig";
 import "./Reset.css";
+
 function Reset() {
   const [email, setEmail] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/home");
   }, [user, loading]);
+
   return (
     <div className="reset">
       <div className="reset__container">
+        <h2>
+          Reset
+        </h2>
         <input
           type="text"
           className="reset__textBox"
