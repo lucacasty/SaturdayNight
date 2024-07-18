@@ -14,7 +14,7 @@ export const fetchUserByMail = createAsyncThunk(
       limit(1)
     );
 
-    const querySnapshot = await getDocs(userColletionRef);
+    const querySnapshot = await getDocs(q);
     let items = querySnapshot.docs[0].data();
     items.id = querySnapshot.docs[0].id;
     return items;

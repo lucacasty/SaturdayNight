@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../config/fireBaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./Login.css";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
@@ -15,6 +17,17 @@ function Login() {
     }
     if (user) navigate("/home");
   }, [user, loading]);
+
+  const callSignInWithGoogle = async () => {
+    const res = await signInWithGoogle();
+    console.log(res);
+  }
+
+  const callLogInWithEmailAndPassword = async () => {
+    const res = await logInWithEmailAndPassword();
+    console.log(res);
+  }
+
   return (
     <div className="login">
       <div className="login__container">
@@ -38,11 +51,11 @@ function Login() {
         />
         <button
           className="login__btn"
-          onClick={() => logInWithEmailAndPassword(email, password)}
+          onClick={callLogInWithEmailAndPassword}
         >
           Login
         </button>
-        <button className="login__btn login__google" onClick={signInWithGoogle}>
+        <button className="login__btn login__google" onClick={callSignInWithGoogle}>
           Login with Google
         </button>
         <div>

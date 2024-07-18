@@ -53,19 +53,25 @@ export const signInWithGoogle = async () => {
         authProvider: "google",
         email: user.email,
       });
+      return true;
+    } else {
+      return true;
     }
   } catch (err) {
     console.error(err);
     console.log(err.message);
+    return err.message;
   }
 };
 
 export const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    return true;
   } catch (err) {
     console.error(err);
     console.log(err.message);
+    return err.message;
   }
 };
 
@@ -79,9 +85,11 @@ export const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: "local",
       email,
     });
+    return true;
   } catch (err) {
     console.error(err);
     console.log(err.message);
+    return err.message;
   }
 };
 
@@ -89,9 +97,11 @@ export const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
     console.log("Password reset link sent!");
+    return true;
   } catch (err) {
     console.error(err);
     console.log(err.message);
+    return err.message;
   }
 };
 

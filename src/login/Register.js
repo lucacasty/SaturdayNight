@@ -7,20 +7,29 @@ import {
   signInWithGoogle,
 } from "../config/fireBaseConfig";
 import "./Register.css";
+
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+
   const register = () => {
     if (!name) console.log("Please enter name");
     registerWithEmailAndPassword(name, email, password);
   };
+
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/home"); 
   }, [user, loading]);
+
+  const callSignInWithGoogle = () => {
+    const res = signInWithGoogle();
+    console.log(res);
+  }
+
   return (
     <div className="register">
       <div className="register__container">
@@ -53,7 +62,7 @@ function Register() {
         </button>
         <button
           className="register__btn register__google"
-          onClick={signInWithGoogle}
+          onClick={callSignInWithGoogle}
         >
           Register with Google
         </button>
