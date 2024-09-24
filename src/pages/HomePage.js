@@ -1,8 +1,9 @@
 import PageTitle from "../components/PageTitle";
+import CalendarPicker from "../components/calendar/CalendarPicker";
 import GroupList from "../components/GroupList";
 import Wheel from "../components/Wheel";
 import IdeasLegend from "../components/IdeasLegend";
-import { setUserGroups } from './../redux/groupSlice';
+import { setUserGroups, setGroupIdeas } from './../redux/groupSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { db } from './../config/fireBaseConfig';
@@ -24,9 +25,22 @@ import {
 const HomePage = () => {
 
   const groupColletionRef = collection(db, 'Groups');
+  const IdeasColletionRef = collection(db, 'Ideas');
   const currentUserGroups = useSelector((state) => state.group.userGroups);
+  const currentGroupIdeas = useSelector((state) => state.group.groupIdeas);
+  const currentUserGroup = useSelector((state) => state.general.groupSelected);
   const currentUserMail = useSelector((state) => state.login.email);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentUserGroup) {
+      const unsub = getGroupIdeas();
+      return () => {
+        unsub();
+      }
+    }
+
+  }, [currentUserGroup]);
 
   useEffect(() => {
     if (currentUserMail) {
@@ -58,10 +72,31 @@ const HomePage = () => {
     return unsub;
   }
 
+  const getGroupIdeas = () => {
+    const q = query(
+      IdeasColletionRef,
+      where('groupId', '==', currentUserGroup)
+    );
+
+    let unsub = onSnapshot(q, (querySnapshot) => {
+      console.log(currentUserGroup);
+      let data = [];
+      querySnapshot.docs.forEach(doc => {
+        let tmp = {};
+        tmp = doc.data()
+        tmp.id = doc.id;
+        data.push(tmp);
+      });
+      dispatch(setGroupIdeas(data));
+    });
+    return unsub;
+  }
+
   return (
     <>
       <PageTitle value="HomePage" />
       <GroupList groups={currentUserGroups}/>
+      <CalendarPicker ideas={currentGroupIdeas}/>
       <Wheel />
       <IdeasLegend />
     </>
