@@ -9,21 +9,28 @@ import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeSelectedDay } from '../../redux/generalSlice';
 
-export default function CalendarPicker({ groups }) {
+export default function CalendarPicker({ ideas }) {
 
-  let groupSelected = useSelector((state) => state.general.groupSelected);
-  if(groupSelected == null) {
-    groupSelected = '';
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth() + 1; 
+  let day = today.getDate();
+  let initialValue = dayjs(`${year}-${month}-${day}`);
+
+  let selectedDay = useSelector((state) => state.general.selectedDay);
+  if(selectedDay == null) {
+    selectedDay = '';
   }
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const requestAbortController = React.useRef(null);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
+  const [highlightedDays, setHighlightedDays] = React.useState([]);
 
   const fetchHighlightedDays = (date) => {
     const controller = new AbortController();
-    fakeFetch(date, {
+    console.log("3:"+date);
+    getDaysWithIdeas(date, {
       signal: controller.signal,
     })
       .then(({ daysToHighlight }) => {
@@ -41,12 +48,14 @@ export default function CalendarPicker({ groups }) {
   };
 
   React.useEffect(() => {
+    console.log("1:"+initialValue);
     fetchHighlightedDays(initialValue);
     // abort request on unmount
     return () => requestAbortController.current?.abort();
-  }, []);
+  }, [ideas]);
 
   const handleMonthChange = (date) => {
+    console.log("2:"+date);
     if (requestAbortController.current) {
       // make sure that you are aborting useless requests
       // because it is possible to switch between months pretty quickly
@@ -57,6 +66,55 @@ export default function CalendarPicker({ groups }) {
     setHighlightedDays([]);
     fetchHighlightedDays(date);
   };
+
+  const handleDaySelection = (date) => {
+    console.log(date)
+    dispatch(changeSelectedDay(date));
+  };
+  
+  /**
+   * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
+   * ⚠️ No IE11 support
+   */
+  function getDaysWithIdeas(date, { signal }) {
+    console.log("4:"+date);
+    return new Promise((resolve, reject) => {
+      console.log("5:"+date);
+
+      const currentMonth = date.month() + 1; // getMonth() ritorna 0-11, quindi aggiungiamo 1
+      const currentYear = date.year();
+      
+      const daysToHighlight = ideas.filter(item => {
+        const [day, month, year] = item.date.split('/').map(Number); // Dividiamo la stringa della data
+        return month === currentMonth && year === currentYear;
+      }).map(item => parseInt(item.date.split('/')[0]));
+      
+      console.log(daysToHighlight);
+
+      resolve({ daysToHighlight });
+  
+      signal.onabort = () => {
+        reject(new DOMException('aborted', 'AbortError'));
+      };
+    });
+  }
+  
+  function ServerDay(props) {
+    const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+  
+    const isSelected =
+      !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
+  
+    return (
+      <Badge
+        key={props.day.toString()}
+        overlap="circular"
+        badgeContent={isSelected ? '🌚' : undefined}
+      >
+        <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
+      </Badge>
+    );
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -73,50 +131,8 @@ export default function CalendarPicker({ groups }) {
             highlightedDays,
           },
         }}
+        onChange={handleDaySelection}
       />
     </LocalizationProvider>
-  );
-}
-
-function getRandomNumber(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-}
-
-/**
- * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
- * ⚠️ No IE11 support
- */
-function fakeFetch(date, { signal }) {
-  return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      const daysInMonth = date.daysInMonth();
-      const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
-
-      resolve({ daysToHighlight });
-    }, 500);
-
-    signal.onabort = () => {
-      clearTimeout(timeout);
-      reject(new DOMException('aborted', 'AbortError'));
-    };
-  });
-}
-
-const initialValue = dayjs('2022-04-17');
-
-function ServerDay(props) {
-  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
-
-  const isSelected =
-    !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
-
-  return (
-    <Badge
-      key={props.day.toString()}
-      overlap="circular"
-      badgeContent={isSelected ? '🌚' : undefined}
-    >
-      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
-    </Badge>
   );
 }
