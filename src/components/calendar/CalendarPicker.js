@@ -109,7 +109,7 @@ export default function CalendarPicker({ ideas }) {
       <Badge
         key={props.day.toString()}
         overlap="circular"
-        badgeContent={isSelected ? '🌚' : undefined}
+        badgeContent={isSelected ? '💡' : undefined}
       >
         <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
       </Badge>
