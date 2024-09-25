@@ -94,7 +94,7 @@ const HomePage = () => {
 
   return (
     <>
-      <PageTitle value="HomePage" />
+      {/*<PageTitle value="HomePage" />*/}
       <GroupList groups={currentUserGroups}/>
       <CalendarPicker ideas={currentGroupIdeas}/>
       <Wheel />
