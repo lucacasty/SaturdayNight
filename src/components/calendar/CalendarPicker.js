@@ -29,7 +29,6 @@ export default function CalendarPicker({ ideas }) {
 
   const fetchHighlightedDays = (date) => {
     const controller = new AbortController();
-    console.log("3:"+date);
     getDaysWithIdeas(date, {
       signal: controller.signal,
     })
@@ -48,7 +47,6 @@ export default function CalendarPicker({ ideas }) {
   };
 
   React.useEffect(() => {
-    console.log("1:"+initialValue);
     fetchHighlightedDays(initialValue);
     // abort request on unmount
     return () => requestAbortController.current?.abort();
@@ -68,8 +66,8 @@ export default function CalendarPicker({ ideas }) {
   };
 
   const handleDaySelection = (date) => {
-    console.log(date)
-    dispatch(changeSelectedDay(date));
+    let value = date.year() + '-' + date.month() + '-' + date.day();
+    dispatch(changeSelectedDay(value));
   };
   
   /**
@@ -77,19 +75,17 @@ export default function CalendarPicker({ ideas }) {
    * ⚠️ No IE11 support
    */
   function getDaysWithIdeas(date, { signal }) {
-    console.log("4:"+date);
     return new Promise((resolve, reject) => {
-      console.log("5:"+date);
 
       const currentMonth = date.month() + 1; // getMonth() ritorna 0-11, quindi aggiungiamo 1
       const currentYear = date.year();
       
       const daysToHighlight = ideas.filter(item => {
-        const [day, month, year] = item.date.split('/').map(Number); // Dividiamo la stringa della data
+        const [year, month, day] = item.date.split('-').map(Number); // Dividiamo la stringa della data
         return month === currentMonth && year === currentYear;
-      }).map(item => parseInt(item.date.split('/')[0]));
-      
-      console.log(daysToHighlight);
+      }).map(item => parseInt(item.date.split('-')[2]));
+
+      console.log("Day to higlight: "+daysToHighlight);
 
       resolve({ daysToHighlight });
   
