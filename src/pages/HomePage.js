@@ -1,4 +1,5 @@
 import PageTitle from "../components/PageTitle";
+import Date from "../components/Date";
 import CalendarPicker from "../components/CalendarPicker";
 import GroupList from "../components/GroupList";
 import Wheel from "../components/Wheel";
@@ -96,6 +97,7 @@ const HomePage = () => {
     <>
       {/*<PageTitle value="HomePage" />*/}
       <GroupList groups={currentUserGroups}/>
+      <Date />
       <CalendarPicker ideas={currentGroupIdeas}/>
       <Wheel />
       <IdeasLegend />

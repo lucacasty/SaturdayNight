@@ -7,7 +7,7 @@ import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeSelectedDay } from '../../redux/generalSlice';
+import { changeSelectedDay } from '../redux/generalSlice';
 
 export default function CalendarPicker({ ideas }) {
 
