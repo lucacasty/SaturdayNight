@@ -1,5 +1,5 @@
 import PageTitle from "../components/PageTitle";
-import CalendarPicker from "../components/calendar/CalendarPicker";
+import CalendarPicker from "../components/CalendarPicker";
 import GroupList from "../components/GroupList";
 import Wheel from "../components/Wheel";
 import IdeasLegend from "../components/IdeasLegend";
