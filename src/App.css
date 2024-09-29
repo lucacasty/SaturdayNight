@@ -52,3 +52,14 @@ body {
   padding-right: 55px;
   height: 59px; 
 }
+
+#wheel-container {
+  display: flex;
+  justify-content: center;
+}
+
+#wheel-container canvas{
+  position: absolute;
+  top: 50px;
+  transform: scale(0.6);
+}
