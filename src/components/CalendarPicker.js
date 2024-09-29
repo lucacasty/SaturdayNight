@@ -7,7 +7,7 @@ import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeSelectedDay } from '../redux/generalSlice';
+import { changeSelectedDay, setCalendarShown } from '../redux/generalSlice';
 
 export default function CalendarPicker({ ideas }) {
 
@@ -68,6 +68,7 @@ export default function CalendarPicker({ ideas }) {
   const handleDaySelection = (date) => {
     let value = date.year() + '-' + ('0'+(date.month()+1)).slice(-2) + '-' + ('0'+date.date()).slice(-2);
     dispatch(changeSelectedDay(value));
+    dispatch(setCalendarShown(false));
   };
   
   /**

@@ -10,10 +10,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React, { useEffect } from 'react';
 
 function App() {
-
-  const generalSettings = useSelector((state) => state.general);
-  const dispatch = useDispatch();
-
   return (
     <>
      <Router>

@@ -6,7 +6,8 @@ export const generalSlice = createSlice({
     page: 0,
     groupSelected: null,
     loginError: null,
-    selectedDay: null
+    selectedDay: null,
+    calendarShown: false
   },
   reducers: {
     changePage: (state, value) => {
@@ -18,6 +19,9 @@ export const generalSlice = createSlice({
     changeSelectedDay: (state, value) => {
       state.selectedDay = value.payload
     },
+    setCalendarShown: (state, value) => {
+      state.calendarShown = value.payload
+    },
     setLoginerror: (state, value) => {
       state.loginError = value.payload
     },
@@ -25,6 +29,6 @@ export const generalSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { changePage, changeSelectedGroup, changeSelectedDay, setLoginerror} = generalSlice.actions
+export const { changePage, changeSelectedGroup, changeSelectedDay, setCalendarShown, setLoginerror} = generalSlice.actions
 
 export default generalSlice.reducer

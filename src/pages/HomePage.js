@@ -31,6 +31,8 @@ const HomePage = () => {
   const currentGroupIdeas = useSelector((state) => state.group.groupIdeas);
   const currentUserGroup = useSelector((state) => state.general.groupSelected);
   const currentUserMail = useSelector((state) => state.login.email);
+  const calendarShown = useSelector((state) => state.general.calendarShown);
+  const selectedDay = useSelector((state) => state.general.selectedDay);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -97,8 +99,10 @@ const HomePage = () => {
     <>
       {/*<PageTitle value="HomePage" />*/}
       <GroupList groups={currentUserGroups}/>
-      <Date />
-      <CalendarPicker ideas={currentGroupIdeas}/>
+      <Date day={selectedDay}/>
+      {calendarShown && (
+        <CalendarPicker ideas={currentGroupIdeas}/>
+      )}
       <Wheel />
       <IdeasLegend />
     </>

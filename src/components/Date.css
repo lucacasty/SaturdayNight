@@ -9,6 +9,8 @@
     letter-spacing: 0.00938em;
     color: rgba(0, 0, 0, 0.87);
     border-radius: 4px;
+    padding: 0 8px;
+    height: calc(100% + 5px);
 }
 
 #homepage-date-fieldset-container {
@@ -39,4 +41,9 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+#homepage-date-fieldset-container svg {
+    color: rgba(0, 0, 0, 0.54);
+    float: right;
 }
