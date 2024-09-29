@@ -66,7 +66,7 @@ export default function CalendarPicker({ ideas }) {
   };
 
   const handleDaySelection = (date) => {
-    let value = date.year() + '-' + date.month() + '-' + date.day();
+    let value = date.year() + '-' + ('0'+(date.month()+1)).slice(-2) + '-' + ('0'+date.date()).slice(-2);
     dispatch(changeSelectedDay(value));
   };
   

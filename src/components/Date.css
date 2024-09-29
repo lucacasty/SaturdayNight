@@ -1,0 +1,42 @@
+#homepage-date-fieldset {
+    border: 1px solid #c7c7c7;
+    color: rgba(0, 0, 0, 0.87);
+    margin: 0px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4375em;
+    letter-spacing: 0.00938em;
+    color: rgba(0, 0, 0, 0.87);
+    border-radius: 4px;
+}
+
+#homepage-date-fieldset-container {
+    padding-top: 10px;
+    padding-left: 55px;
+    padding-right: 55px;
+    height: 59px; 
+}
+
+#homepage-date-fieldset-legend {
+    color: rgba(0, 0, 0, 0.6);
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4375em;
+    letter-spacing: 0.00938em;
+    padding: 0;
+    position: relative;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(133% - 32px);
+    transform: scale(0.75);
+    z-index: 1;
+    pointer-events: auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
