@@ -24,7 +24,7 @@ export default function () {
 
   const weelColors = () => {
     let arr = [];
-    let colors = ["#EE4040", "#F0CF50", "#815CD1", "#3DA5E0", "#34A24F"];
+    let colors = ["#EF476F", "#FFD166", "#06D6A0", "#118AB2", "#073B4C", "#8F6593", "#EDAF97"];
     segments.forEach((el) => {
       let color = colors.shift();
       arr.push(color);
@@ -47,7 +47,7 @@ export default function () {
           segColors={segColors}
           winningSegment={"8"}
           onFinished={(winner) => onFinished(winner)}
-          primaryColor="gray"
+          primaryColor="black"
           contrastColor="white"
           buttonText="Spin"
           isOnlyOnce={true}
