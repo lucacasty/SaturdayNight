@@ -16,7 +16,7 @@ export default function () {
     "Ale",
     "Gullo",  
     "Luca ",
-    "Luisa",
+    "Lucrezia Isaia",
     "Andre",
     "Dutto",
     "Abra",
@@ -24,7 +24,7 @@ export default function () {
 
   const weelColors = () => {
     let arr = [];
-    let colors = ["#EF476F", "#FFD166", "#06D6A0", "#118AB2", "#073B4C", "#8F6593", "#EDAF97"];
+    let colors = ["#BB342F", "#C8B82D", "#4F9523", "#06D6A0", "#118AB2", "#974992", "#F26430"];
     segments.forEach((el) => {
       let color = colors.shift();
       arr.push(color);

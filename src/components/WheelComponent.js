@@ -126,7 +126,7 @@ export default function WheelComponent ({
     ctx.save();
     ctx.translate(centerX, centerY);
     ctx.rotate((lastAngle + angle) / 2);
-    ctx.fillStyle = contrastColor || "white";
+    ctx.fillStyle = primaryColor || "white";
     ctx.font = "bold 2em proxima-nova";
     ctx.fillText(value.substr(0, 21), size / 2 + 20, 0);
     ctx.restore();
