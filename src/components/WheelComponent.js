@@ -125,12 +125,17 @@ export default function WheelComponent ({
     ctx.stroke();
     ctx.save();
     ctx.translate(centerX, centerY);
-    ctx.rotate((lastAngle + angle) / 2);
+    const textAngle = (lastAngle + angle) / 2;
+    ctx.rotate(textAngle);
+    ctx.scale(-1, -1); 
+
     ctx.fillStyle = primaryColor || "white";
     ctx.font = "bold 2em proxima-nova";
-    ctx.fillText(value.substr(0, 21), size / 2 + 20, 0);
+  
+    ctx.fillText(value.substr(0, 21), -size / 2 - 20, 0);
     ctx.restore();
   };
+  
 
   const drawWheel = () => {
     const ctx = canvasContext;
