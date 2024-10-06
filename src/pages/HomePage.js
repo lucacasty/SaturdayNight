@@ -1,5 +1,5 @@
 import PageTitle from "../components/PageTitle";
-import Date from "../components/Date";
+import DateComponent from "../components/Date";
 import CalendarPicker from "../components/CalendarPicker";
 import GroupList from "../components/GroupList";
 import Wheel from "../components/Wheel";
@@ -8,6 +8,8 @@ import { setUserGroups, setGroupIdeas } from './../redux/groupSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { db } from './../config/fireBaseConfig';
+import dayjs from 'dayjs';
+import { changeSelectedDay } from '../redux/generalSlice';
 import {
   doc,
   onSnapshot,
@@ -33,7 +35,15 @@ const HomePage = () => {
   const currentUserMail = useSelector((state) => state.login.email);
   const calendarShown = useSelector((state) => state.general.calendarShown);
   const selectedDay = useSelector((state) => state.general.selectedDay);
+  const ideasForSelectedDay = useSelector((state) => state.group.groupIdeasInSelectedDay);
   const dispatch = useDispatch();
+
+  if(selectedDay == null) {
+    let date = dayjs(new Date());
+    let value = date.year() + '-' + ('0'+(date.month()+1)).slice(-2) + '-' + ('0'+date.date()).slice(-2);
+    dispatch(changeSelectedDay(value));
+  }
+  
 
   useEffect(() => {
     if (currentUserGroup) {
@@ -99,11 +109,13 @@ const HomePage = () => {
     <>
       {/*<PageTitle value="HomePage" />*/}
       <GroupList groups={currentUserGroups}/>
-      <Date day={selectedDay}/>
+      <DateComponent day={selectedDay}/>
       {calendarShown && (
         <CalendarPicker ideas={currentGroupIdeas}/>
       )}
-      <Wheel />
+      {!calendarShown && (
+        <Wheel ideas={ideasForSelectedDay}/>
+      )}
       <IdeasLegend />
     </>
   );
