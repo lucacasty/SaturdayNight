@@ -1,26 +1,25 @@
 import React from 'react';
 import WheelComponent from './WheelComponent';
 
-export default function () {
+export default function ({ideas}) {
 
-  let objIndex = {
-    "Iphone13promax": 1, 
-    "Bosesurroundspeakers": 2, 
-    "Samsung65-InchCrystalUHD4KFlatSmartTV": 3, 
-    "MacBookAirMGN6314”Display,AppleM1ChipWith8-Core": 4, 
-    "KIATELLURIDE2022": 5,
-    "SAMSUNGFRONTLOADWASHINGMACHINE16KG": 6,
-    "10GRAMSGOLDCOIN": 7,
+  let segments = [];
+
+  if(ideas !== null && ideas !== undefined && ideas.length > 0) {
+    segments = ideas.map(item => item.name);
   }
-  const segments = [
-    "Ale",
-    "Gullo",  
-    "Luca ",
-    "Lucrezia Isaia",
-    "Andre",
-    "Dutto",
-    "Abra",
-  ];
+  else {
+    segments = [
+      "Ale",
+      "Gullo",  
+      "Luca ",
+      "Lucrezia Isaia",
+      "Andre",
+      "Dutto",
+      "Abra",
+    ] 
+  }
+
 
   const weelColors = () => {
     let arr = [];

@@ -8,6 +8,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeSelectedDay, setCalendarShown } from '../redux/generalSlice';
+import { setGroupIdeasInSelectedDay } from '../redux/groupSlice';
 
 export default function CalendarPicker({ ideas }) {
 
@@ -81,10 +82,14 @@ export default function CalendarPicker({ ideas }) {
       const currentMonth = date.month() + 1; // getMonth() ritorna 0-11, quindi aggiungiamo 1
       const currentYear = date.year();
       
-      const daysToHighlight = ideas.filter(item => {
+      let daysToHighlight = ideas.filter(item => {
         const [year, month, day] = item.date.split('-').map(Number); // Dividiamo la stringa della data
         return month === currentMonth && year === currentYear;
-      }).map(item => parseInt(item.date.split('-')[2]));
+      });
+
+      dispatch(setGroupIdeasInSelectedDay(daysToHighlight));
+
+      daysToHighlight = daysToHighlight.map(item => parseInt(item.date.split('-')[2]));
 
       console.log("Day to higlight: "+daysToHighlight);
 

@@ -5,6 +5,7 @@ export const groupSlice = createSlice({
   initialState: {
     userGroups: [],
     groupIdeas: [],
+    groupIdeasInSelectedDay: [],
   },
   reducers: {
     setUserGroups: (state, action) => {
@@ -12,11 +13,14 @@ export const groupSlice = createSlice({
     },
     setGroupIdeas: (state, action) => {
       state.groupIdeas = action.payload
+    },
+    setGroupIdeasInSelectedDay: (state, action) => {
+      state.groupIdeasInSelectedDay = action.payload
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setUserGroups, setGroupIdeas } = groupSlice.actions
+export const { setUserGroups, setGroupIdeas, setGroupIdeasInSelectedDay } = groupSlice.actions
 
 export default groupSlice.reducer
