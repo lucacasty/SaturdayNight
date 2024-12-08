@@ -1,10 +1,9 @@
-import PageTitle from "../components/PageTitle";
 import DateComponent from "../components/Date";
 import CalendarPicker from "../components/CalendarPicker";
 import GroupList from "../components/GroupList";
-import Wheel from "../components/Wheel";
+import IdeasList from "../components/IdeasList";
 import IdeasLegend from "../components/IdeasLegend";
-import { setUserGroups, setGroupIdeas } from './../redux/groupSlice';
+import { setUserGroups, setGroupIdeas, setGroupSelectedUsers } from './../redux/groupSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { db } from './../config/fireBaseConfig';
@@ -30,7 +29,7 @@ const HomePage = () => {
   const groupColletionRef = collection(db, 'Groups');
   const IdeasColletionRef = collection(db, 'Ideas');
   const currentUserGroups = useSelector((state) => state.group.userGroups);
-  const currentGroupIdeas = useSelector((state) => state.group.groupIdeas);
+  const currentGroupIdeas = useSelector((state) => state.group.groupSelectedIdeas);
   const currentUserGroup = useSelector((state) => state.general.groupSelected);
   const currentUserMail = useSelector((state) => state.login.email);
   const calendarShown = useSelector((state) => state.general.calendarShown);
@@ -48,6 +47,16 @@ const HomePage = () => {
   useEffect(() => {
     if (currentUserGroup) {
       const unsub = getGroupIdeas();
+      return () => {
+        unsub();
+      }
+    }
+
+  }, [currentUserGroup]);
+
+  useEffect(() => {
+    if (currentUserGroup) {
+      const unsub = getGroupUsers();
       return () => {
         unsub();
       }
@@ -104,6 +113,20 @@ const HomePage = () => {
     });
     return unsub;
   }
+  
+  const getGroupUsers = () => {
+    const groupRef = doc(db, 'Groups', currentUserGroup); // Assicurati che sia il doc giusto
+    let unsub = onSnapshot(groupRef, (docSnapshot) => {
+      const data = docSnapshot.data();
+      if (data && data.users) {
+        const users = data.users.map(userMail => ({
+          name: userMail,
+        }));
+        dispatch(setGroupSelectedUsers(users));
+      }
+    });
+    return unsub;
+  }
 
   return (
     <>
@@ -114,7 +137,7 @@ const HomePage = () => {
         <CalendarPicker ideas={currentGroupIdeas}/>
       )}
       {!calendarShown && (
-        <Wheel ideas={ideasForSelectedDay}/>
+        <IdeasList ideas={ideasForSelectedDay}/>
       )}
       <IdeasLegend />
     </>
