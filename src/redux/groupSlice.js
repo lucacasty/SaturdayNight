@@ -7,21 +7,21 @@ export const groupSlice = createSlice({
   initialState: {
     userGroups: [], // Gruppi a cui l'utente appartiene
     groupIdeasInSelectedDay: [], // Idee filtrate per giorno
-    groupSelectedIdeas: [], // Idee del gruppo selezionato
-    groupSelectedUsers: [], // Utenti del gruppo selezionato
+    selectedGroupIdeas: [], // Idee del gruppo selezionato
+    selectedGroupUsers: [], // Utenti del gruppo selezionato
   },
   reducers: {
     setUserGroups: (state, action) => {
       state.userGroups = action.payload;
     },
     setGroupIdeas: (state, action) => {
-      state.groupSelectedIdeas = action.payload;
+      state.selectedGroupIdeas = action.payload;
     },
     setGroupIdeasInSelectedDay: (state, action) => {
       state.groupIdeasInSelectedDay = action.payload;
     },
-    setGroupSelectedUsers: (state, action) => {
-      state.groupSelectedUsers = action.payload;
+    setSelectedGroupUsers: (state, action) => {
+      state.selectedGroupUsers = action.payload;
     },
     voteForIdea: (state, action) => {
       const { ideaId, userEmail, isChecked } = action.payload;
@@ -54,5 +54,5 @@ export const groupSlice = createSlice({
   },
 });
 
-export const { setUserGroups, setGroupIdeas, setGroupIdeasInSelectedDay, setGroupSelectedUsers, voteForIdea } = groupSlice.actions;
+export const { setUserGroups, setGroupIdeas, setGroupIdeasInSelectedDay, setSelectedGroupUsers, voteForIdea } = groupSlice.actions;
 export default groupSlice.reducer;

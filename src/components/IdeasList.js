@@ -6,7 +6,7 @@ import './IdeasList.css';
 
 const IdeasList = ({ ideas }) => {
   const dispatch = useDispatch();
-  const groupSelectedUsers = useSelector((state) => state.group.groupSelectedUsers);
+  const selectedGroupUsers = useSelector((state) => state.group.selectedGroupUsers);
   const groupIdeasInSelectedDay = useSelector((state) => state.group.groupIdeasInSelectedDay);
   const userEmail = useSelector((state) => state.login.email);
 
@@ -45,7 +45,7 @@ const IdeasList = ({ ideas }) => {
           </tr>
         </thead>
         <tbody>
-          {groupSelectedUsers.map((user) => {
+          {selectedGroupUsers.map((user) => {
             const userIdea = groupIdeasInSelectedDay.find((idea) => idea.userId === user.id);
 
             return (

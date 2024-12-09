@@ -4,7 +4,7 @@ import CalendarPicker from "../components/CalendarPicker";
 import GroupList from "../components/GroupList";
 import IdeasList from "../components/IdeasList";
 import IdeasLegend from "../components/IdeasLegend";
-import { setUserGroups, setGroupIdeas, setGroupSelectedUsers } from './../redux/groupSlice';
+import { setUserGroups, setGroupIdeas, setSelectedGroupUsers } from './../redux/groupSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { db } from './../config/fireBaseConfig';
@@ -27,11 +27,12 @@ import {
 
 const HomePage = () => {
 
+  var currentGroupUsers = [];
   const groupColletionRef = collection(db, 'Groups');
   const IdeasColletionRef = collection(db, 'Ideas');
   const UsersColletionRef = collection(db, 'Users');
   const currentUserGroups = useSelector((state) => state.group.userGroups);
-  const currentGroupIdeas = useSelector((state) => state.group.groupSelectedIdeas);
+  const currentGroupIdeas = useSelector((state) => state.group.selectedGroupIdeas);
   const currentUserGroupId = useSelector((state) => state.general.groupSelected);
   const currentUserMail = useSelector((state) => state.login.email);
   const calendarShown = useSelector((state) => state.general.calendarShown);
@@ -71,7 +72,9 @@ const HomePage = () => {
       const currentGroup = currentUserGroups.filter(function(element){
         return element.id == currentUserGroupId;
       });
-      const currentGroupUsers = currentGroup[0]['users'];
+      if(currentGroup!== undefined && currentGroup.length > 0) {
+        currentGroupUsers = currentGroup[0]['users'];
+      }
       if(currentGroupUsers!== undefined && currentGroupUsers.length > 0) {
         const unsub = getCurrentGroupUsers(currentGroupUsers);
         return () => {
@@ -139,7 +142,7 @@ const HomePage = () => {
         tmp.id = doc.id;
         data.push(tmp);
       });
-      dispatch(setGroupSelectedUsers(data));
+      dispatch(setSelectedGroupUsers(data));
     });
     return unsub;
   }
