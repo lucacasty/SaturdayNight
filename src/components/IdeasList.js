@@ -36,7 +36,6 @@ const IdeasList = ({ ideas }) => {
 
   return (
     <div className="ideas-table">
-      <h1>Ideas for Selected Day</h1>
       <table>
         <thead>
           <tr>
