@@ -5,13 +5,13 @@
   overflow-x: auto; /* Aggiunge lo scroll orizzontale se necessario */
 }
 
-h1 {
+.ideas-table h1 {
   text-align: center;
   font-size: 2em;
   margin-bottom: 20px;
 }
 
-table {
+.ideas-table table {
   width: 100%;
   table-layout: fixed; /* Impone larghezza uniforme alle colonne */
   border-collapse: collapse;
@@ -22,25 +22,25 @@ table {
   word-wrap: break-word; /* Permette al testo di andare a capo nelle celle */
 }
 
-th,
-td {
+.ideas-table th,
+.ideas-table td {
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #ddd;
   word-wrap: break-word; /* Aggiunge la gestione del ritorno a capo nelle celle */
 }
 
-th {
+.ideas-table th {
   background-color: #4CAF50;
   color: white;
   font-weight: bold;
 }
 
-td {
+.ideas-table td {
   background-color: #fff;
 }
 
-button {
+.ideas-table button {
   padding: 8px 16px;
   border: none;
   background-color: #4CAF50;
@@ -50,22 +50,23 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.ideas-table button:hover {
   background-color: #45a049;
 }
 
-button:disabled {
+.ideas-table button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-tr:hover {
+.ideas-table tr:hover {
   background-color: #f1f1f1;
 }
 
 @media (max-width: 768px) {
   
-  th, td {
+  .ideas-table th, 
+  .ideas-table td {
     padding: 8px 10px; /* Riduce la dimensione del padding su schermi piccoli */
   }
 }
