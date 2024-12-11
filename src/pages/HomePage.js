@@ -1,9 +1,10 @@
+import PageTitle from "../components/PageTitle";
 import DateComponent from "../components/Date";
 import CalendarPicker from "../components/CalendarPicker";
 import GroupList from "../components/GroupList";
 import IdeasList from "../components/IdeasList";
 import IdeasLegend from "../components/IdeasLegend";
-import { setUserGroups, setGroupIdeas, setGroupSelectedUsers } from './../redux/groupSlice';
+import { setUserGroups, setGroupIdeas, setSelectedGroupUsers } from './../redux/groupSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { db } from './../config/fireBaseConfig';
@@ -26,11 +27,13 @@ import {
 
 const HomePage = () => {
 
+  var currentGroupUsers = [];
   const groupColletionRef = collection(db, 'Groups');
   const IdeasColletionRef = collection(db, 'Ideas');
+  const UsersColletionRef = collection(db, 'Users');
   const currentUserGroups = useSelector((state) => state.group.userGroups);
-  const currentGroupIdeas = useSelector((state) => state.group.groupSelectedIdeas);
-  const currentUserGroup = useSelector((state) => state.general.groupSelected);
+  const currentGroupIdeas = useSelector((state) => state.group.selectedGroupIdeas);
+  const currentUserGroupId = useSelector((state) => state.general.groupSelected);
   const currentUserMail = useSelector((state) => state.login.email);
   const calendarShown = useSelector((state) => state.general.calendarShown);
   const selectedDay = useSelector((state) => state.general.selectedDay);
@@ -45,26 +48,6 @@ const HomePage = () => {
   
 
   useEffect(() => {
-    if (currentUserGroup) {
-      const unsub = getGroupIdeas();
-      return () => {
-        unsub();
-      }
-    }
-
-  }, [currentUserGroup]);
-
-  useEffect(() => {
-    if (currentUserGroup) {
-      const unsub = getGroupUsers();
-      return () => {
-        unsub();
-      }
-    }
-
-  }, [currentUserGroup]);
-
-  useEffect(() => {
     if (currentUserMail) {
       const unsub = getUserGroups();
       return () => {
@@ -73,6 +56,34 @@ const HomePage = () => {
     }
 
   }, [currentUserMail]);
+
+  useEffect(() => {
+    if (currentUserGroupId) {
+      const unsub = getGroupIdeas();
+      return () => {
+        unsub();
+      }
+    }
+
+  }, [currentUserGroupId]);
+
+  useEffect(() => {
+    if (currentUserGroups) {
+      const currentGroup = currentUserGroups.filter(function(element){
+        return element.id == currentUserGroupId;
+      });
+      if(currentGroup!== undefined && currentGroup.length > 0) {
+        currentGroupUsers = currentGroup[0]['users'];
+      }
+      if(currentGroupUsers!== undefined && currentGroupUsers.length > 0) {
+        const unsub = getCurrentGroupUsers(currentGroupUsers);
+        return () => {
+          unsub();
+        }
+      }
+    }
+
+  }, [currentUserGroups]);
 
   const getUserGroups = () => {
     const q = query(
@@ -97,11 +108,11 @@ const HomePage = () => {
   const getGroupIdeas = () => {
     const q = query(
       IdeasColletionRef,
-      where('groupId', '==', currentUserGroup)
+      where('groupId', '==', currentUserGroupId)
     );
 
     let unsub = onSnapshot(q, (querySnapshot) => {
-      console.log(currentUserGroup);
+      console.log(currentUserGroupId);
       let data = [];
       querySnapshot.docs.forEach(doc => {
         let tmp = {};
@@ -113,17 +124,25 @@ const HomePage = () => {
     });
     return unsub;
   }
-  
-  const getGroupUsers = () => {
-    const groupRef = doc(db, 'Groups', currentUserGroup); // Assicurati che sia il doc giusto
-    let unsub = onSnapshot(groupRef, (docSnapshot) => {
-      const data = docSnapshot.data();
-      if (data && data.users) {
-        const users = data.users.map(userMail => ({
-          name: userMail,
-        }));
-        dispatch(setGroupSelectedUsers(users));
-      }
+
+  // Getting informations of users in the group selected
+  const getCurrentGroupUsers = (currentGroupUsers) => { 
+
+    const q = query(
+      UsersColletionRef,
+      where('email', 'in', currentGroupUsers)
+    );
+
+    let unsub = onSnapshot(q, (querySnapshot) => {
+      console.log(currentUserMail);
+      let data = [];
+      querySnapshot.docs.forEach(doc => {
+        let tmp = {};
+        tmp = doc.data()
+        tmp.id = doc.id;
+        data.push(tmp);
+      });
+      dispatch(setSelectedGroupUsers(data));
     });
     return unsub;
   }
