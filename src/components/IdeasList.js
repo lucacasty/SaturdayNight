@@ -51,17 +51,17 @@ const IdeasList = ({ ideas }) => {
             return (
               <tr key={user.id}>
                 <td>{user.name || user.email}</td>
-                <td>{userIdea ? userIdea.idea : ''}</td>
+                <td>{userIdea ? userIdea.name : ''}</td>
                 <td>
                   {userIdea ? (
-                    <Checkbox
-                      checked={userIdea.votes.includes(userEmail)}
-                      onChange={() => handleVote(userIdea.id)}
-                    />
+                    ''
                   ) : user.email === userEmail ? (
                     <button onClick={() => handleAddIdea()}>+</button>
                   ) : (
-                    ''
+                    <Checkbox
+                      checked={userIdea?.votes?.includes(userEmail)}
+                      onChange={() => handleVote(userIdea.id)}
+                    />
                   )}
                 </td>
               </tr>

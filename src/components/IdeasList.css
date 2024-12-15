@@ -28,6 +28,7 @@
   text-align: left;
   border-bottom: 1px solid #ddd;
   word-wrap: break-word; /* Aggiunge la gestione del ritorno a capo nelle celle */
+  text-align: center;
 }
 
 .ideas-table th {
