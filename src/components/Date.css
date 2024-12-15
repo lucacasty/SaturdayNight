@@ -5,19 +5,20 @@
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
     font-size: 1rem;
-    line-height: 1.4375em;
+    line-height: 31px;
     letter-spacing: 0.00938em;
     color: rgba(0, 0, 0, 0.87);
     border-radius: 4px;
     padding: 0 8px;
     height: calc(100% + 5px);
+    text-align: center;
 }
 
 #homepage-date-fieldset-container {
     padding-top: 10px;
     padding-left: 55px;
     padding-right: 55px;
-    height: 59px; 
+    height: 62px; 
 }
 
 #homepage-date-fieldset-legend {
@@ -41,9 +42,11 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    text-align: left;
 }
 
 #homepage-date-fieldset-container svg {
     color: rgba(0, 0, 0, 0.54);
     float: right;
+    margin-top: 4px;
 }
