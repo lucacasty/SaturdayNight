@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { voteForIdea } from '../redux/groupSlice'; // Thunk per caricare gli utenti
 import Checkbox from '@mui/material/Checkbox';
+import { setIdeaModalState } from '../redux/generalSlice';
 import './IdeasList.css';
 
 const IdeasList = ({ ideas }) => {
@@ -32,6 +33,7 @@ const IdeasList = ({ ideas }) => {
   };
 
   const handleAddIdea = () => {
+    dispatch(setIdeaModalState(true));
   };
 
   return (
@@ -60,7 +62,7 @@ const IdeasList = ({ ideas }) => {
                   ) : (
                     <Checkbox
                       checked={userIdea?.votes?.includes(userEmail)}
-                      onChange={() => handleVote(userIdea.id)}
+                      onChange={() => handleVote(userIdea?.id)}
                     />
                   )}
                 </td>

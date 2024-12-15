@@ -83,7 +83,7 @@ const HomePage = () => {
       }
     }
 
-  }, [currentUserGroups]);
+  }, [currentUserGroups, currentUserGroupId]);
 
   const getUserGroups = () => {
     const q = query(

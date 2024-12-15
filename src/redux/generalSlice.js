@@ -7,7 +7,9 @@ export const generalSlice = createSlice({
     groupSelected: null,
     loginError: null,
     selectedDay: null,
-    calendarShown: false
+    calendarShown: false,
+    modalIdeaOpen: false,
+    modalGroupOpen: false
   },
   reducers: {
     changePage: (state, value) => {
@@ -25,10 +27,20 @@ export const generalSlice = createSlice({
     setLoginerror: (state, value) => {
       state.loginError = value.payload
     },
+    setIdeaModalState: (state, value) => {
+      state.modalIdeaOpen = value.payload
+    },
+    setGroupModalState: (state, value) => {
+      state.modalGroupOpen = value.payload
+    },
+    closeAllModals: (state) => {
+      state.modalIdeaOpen = false
+      state.modalGroupOpen = false
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { changePage, changeSelectedGroup, changeSelectedDay, setCalendarShown, setLoginerror} = generalSlice.actions
+export const { changePage, changeSelectedGroup, changeSelectedDay, setCalendarShown, setLoginerror, setIdeaModalState, setGroupModalState, closeAllModals} = generalSlice.actions
 
 export default generalSlice.reducer
