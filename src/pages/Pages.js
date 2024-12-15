@@ -8,6 +8,7 @@ import HistoryPage from './HistoryPage';
 import ProfilePage from './ProfilePage';
 import { setLogin } from '../redux/loginSlice';
 import { closeAllModals } from '../redux/generalSlice';
+import { addIdea } from '../redux/ideaSlice';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
@@ -50,8 +51,9 @@ function Pages() {
 
   const handleSubmitIdea = () => {
     //TODO: add checks
-    const idea = { name: ideaName, description: ideaDescription };
-    console.log("New Idea Created:", idea);
+    const idea = { name: ideaName, description: ideaDescription, groupId: generalSettings.groupSelected, date: generalSettings.selectedDay};
+    console.log("New Idea:", idea);
+    dispatch(addIdea(idea));
     setIdeaName('');
     setIdeaDescription('');
     handleModalClose();

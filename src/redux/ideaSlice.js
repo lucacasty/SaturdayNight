@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+import { db } from './../config/fireBaseConfig';
+import { addDoc, collection } from 'firebase/firestore';
 
 export const ideaSlice = createSlice({
   name: 'idea',
@@ -20,10 +22,19 @@ export const ideaSlice = createSlice({
     incrementByAmount: (state, action) => {
       state.value += action.payload
     },
+    addIdea: (state, action) => {
+      addDoc(collection(db, "Ideas"), action.payload)
+          .then((docRef) => {
+              console.log("Document written with ID: ", docRef.id);
+          })
+          .catch((error) => {
+              console.error("Error adding document: ", error);
+          });
+  },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = ideaSlice.actions
+export const { increment, decrement, incrementByAmount, addIdea } = ideaSlice.actions
 
 export default ideaSlice.reducer
