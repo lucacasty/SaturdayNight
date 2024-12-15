@@ -36,6 +36,10 @@ const IdeasList = ({ ideas }) => {
     dispatch(setIdeaModalState(true));
   };
 
+  const handleRemoveIdea = () => {
+    //TODO: remove from server
+  };
+
   return (
     <div className="ideas-table">
       <table>
@@ -56,7 +60,7 @@ const IdeasList = ({ ideas }) => {
                 <td>{userIdea ? userIdea.name : ''}</td>
                 <td>
                   {userIdea ? (
-                    ''
+                    <button class='red' onClick={() => handleRemoveIdea()}>x</button>
                   ) : user.email === userEmail ? (
                     <button onClick={() => handleAddIdea()}>+</button>
                   ) : (

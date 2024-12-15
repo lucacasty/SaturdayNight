@@ -42,13 +42,14 @@
 }
 
 .ideas-table button {
-  padding: 8px 16px;
+  padding: 0px 8px;
   border: none;
   background-color: #4CAF50;
   color: white;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-size: 20pt;
 }
 
 .ideas-table button:hover {
@@ -58,6 +59,10 @@
 .ideas-table button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.ideas-table button.red {
+  background-color: #af4c4c;
 }
 
 .ideas-table tr:hover {

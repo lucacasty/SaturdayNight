@@ -62,6 +62,7 @@ function Pages() {
   const handleSubmitGroup = () => {
     //TODO: add checks
     const group = { name: groupName };
+    //TODO: add on server
     console.log("New Group Created:", group);
     setGroupName('');
   };
