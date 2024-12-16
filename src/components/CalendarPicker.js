@@ -121,7 +121,7 @@ export default function CalendarPicker({ ideas }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
-        defaultValue={initialValue}
+        defaultValue={initialValue} //TODO: update with value selected
         loading={isLoading}
         onMonthChange={handleMonthChange}
         renderLoading={() => <DayCalendarSkeleton />}
