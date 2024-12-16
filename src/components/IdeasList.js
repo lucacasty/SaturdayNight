@@ -17,7 +17,7 @@ const IdeasList = ({ ideas }) => {
     // Inizializza lo stato con le checkbox selezionate (se l'utente ha già votato)
     const initialCheckedValues = {};
     ideas.forEach((idea) => {
-      initialCheckedValues[idea.id] = idea.votes.includes(userEmail);
+      initialCheckedValues[idea.id] = idea?.votes?.includes(userEmail);
     });
     setCheckedValues(initialCheckedValues);
   }, [ideas, userEmail]);

@@ -28,7 +28,8 @@ export const loginSlice = createSlice({
     email: null,
     username: null,
     uid: null,
-    loading: null
+    loading: null,
+    userId: null
   },
   reducers: {
     setLogin: (state, action) => {
@@ -37,6 +38,7 @@ export const loginSlice = createSlice({
       state.email = action.payload.email;
       state.name = action.payload.name;
       state.uid = action.payload.uid;
+      state.userId = action.payload.id;
     },
     storeLogout: (state, action) => {
       PURGE();

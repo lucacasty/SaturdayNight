@@ -18,6 +18,7 @@ import { db,auth } from '../config/fireBaseConfig';
 function Pages() {
 
   const generalSettings = useSelector((state) => state.general);
+  const loginSlice = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   const [user, loading, error] = useAuthState(auth);
@@ -31,7 +32,8 @@ function Pages() {
     try {
       const q = query(collection(db, "Users"), where("uid", "==", user?.uid));
       const doc = await getDocs(q);
-      const data = doc.docs[0].data();
+      let data = doc.docs[0].data();
+      data.id = doc.docs[0].id;
       dispatch(setLogin(data));
     } catch (err) {
       console.error(err);
@@ -51,7 +53,7 @@ function Pages() {
 
   const handleSubmitIdea = () => {
     //TODO: add checks
-    const idea = { name: ideaName, description: ideaDescription, groupId: generalSettings.groupSelected, date: generalSettings.selectedDay};
+    const idea = { name: ideaName, description: ideaDescription, groupId: generalSettings.groupSelected, date: generalSettings.selectedDay, userId: loginSlice.userId};
     console.log("New Idea:", idea);
     dispatch(addIdea(idea));
     setIdeaName('');
