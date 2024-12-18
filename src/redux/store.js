@@ -3,6 +3,7 @@ import generalReducer from './generalSlice'
 import loginReducer from './loginSlice'
 import userReducer from './userSlice'
 import groupReducer from './groupSlice'
+import homeReducer from './homeSlice'
 import ideaReducer from './ideaSlice'
 import storage from 'redux-persist/lib/storage';
 import {
@@ -26,6 +27,7 @@ const combinedReducer = combineReducers({
     login: loginReducer,
     user: userReducer,
     group: groupReducer,
+    home: homeReducer,
     idea: ideaReducer,
 });
 
