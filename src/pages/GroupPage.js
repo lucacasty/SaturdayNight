@@ -32,6 +32,7 @@ const GroupPage = () => {
   const UsersColletionRef = collection(db, 'Users');
   const currentUserGroups = useSelector((state) => state.group.userGroups);
   const currentGroupIdeas = useSelector((state) => state.group.selectedGroupIdeas);
+  const selectedGroupUsers = useSelector((state) => state.group.selectedGroupUsers);
   const currentUserGroupId = useSelector((state) => state.general.groupSelected);
   const currentUserMail = useSelector((state) => state.login.email);
   const calendarShown = useSelector((state) => state.general.calendarShown);
@@ -154,7 +155,7 @@ const GroupPage = () => {
         <CalendarPicker ideas={currentGroupIdeas}/>
       )}
       {!calendarShown && (
-        <IdeasList ideas={ideasForSelectedDay}/>
+        <IdeasList ideas={ideasForSelectedDay} users={selectedGroupUsers}/>
       )}
       <IdeasLegend />
     </>
